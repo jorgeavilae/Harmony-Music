@@ -1,4 +1,4 @@
-package com.anandnet.harmonymusic
+package com.jorgeavilae.harmonymusic
 
 import com.ryanheise.audioservice.AudioServiceActivity
 

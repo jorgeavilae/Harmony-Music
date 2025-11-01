@@ -145,27 +145,34 @@ class UpNextQueue extends StatelessWidget {
                       index: index,
                       child: Container(
                         padding: EdgeInsets.only(
-                            right: (GetPlatform.isDesktop) ? 20 : 5, left: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            right: (GetPlatform.isDesktop) ? 20 : 5, left: 15),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            if (!GetPlatform.isDesktop)
-                              const Icon(
-                                Icons.drag_handle,
-                              ),
                             playerController.currentSongIndex.value == index
                                 ? const Icon(
                                     Icons.equalizer,
                                     color: Colors.white,
                                   )
-                                : Text(
-                                    playerController.currentQueue[index]
-                                            .extras!['length'] ??
-                                        "",
-                                    style: Theme.of(homeScaffoldContext)
-                                        .textTheme
-                                        .titleSmall,
+                                : SizedBox(
+                                    width: 50,
+                                    child: Text(
+                                      "${playerController.currentQueue[index].extras!['length'] ?? ""}\n${playerController.currentQueue[index].extras!['views'] ?? ""}",
+                                      textAlign: TextAlign.end,
+                                      style: Theme.of(homeScaffoldContext)
+                                          .textTheme
+                                          .titleSmall,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
                                   ),
+                            if (!GetPlatform.isDesktop) ...[
+                              const SizedBox(width: 15),
+                              const Icon(
+                                Icons.drag_handle,
+                              ),
+                            ]
                           ],
                         ),
                       ),

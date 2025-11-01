@@ -161,25 +161,31 @@ class SongListTile extends StatelessWidget with RemoveSongFromPlaylistMixin {
               style: Theme.of(context).textTheme.titleSmall,
             ),
             trailing: SizedBox(
-              width: Get.size.width > 800 ? 80 : 40,
+              width: Get.size.width > 800 ? 100 : 60,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (isPlaylistOrAlbum)
-                        Obx(() =>
-                            playerController.currentSong.value?.id == song.id
-                                ? const Icon(
-                                    Icons.equalizer,
-                                  )
-                                : const SizedBox.shrink()),
-                      Text(
-                        song.extras!['length'] ?? "",
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        if (isPlaylistOrAlbum)
+                          Obx(() =>
+                              playerController.currentSong.value?.id == song.id
+                                  ? const Icon(
+                                      Icons.equalizer,
+                                    )
+                                  : const SizedBox.shrink()),
+                        Text(
+                          "${song.extras!['length'] ?? ""}\n${song.extras!['views'] ?? ""}",
+                          style: Theme.of(context).textTheme.titleSmall,
+                          textAlign: TextAlign.end,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
                   if (GetPlatform.isDesktop)
                     IconButton(
